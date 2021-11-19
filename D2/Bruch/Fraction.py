@@ -13,6 +13,7 @@ class Fraction:
             self.positive = False
         self.zaehler = abs(zaehler)
         self.nenner = abs(nenner)
+        self.__reduce()
 
     def __str__(self):
         num = ""
@@ -31,8 +32,20 @@ class Fraction:
         mult = 1 if self.positive else -1
         return self.__class__.__name__ + f"({self.zaehler*mult}, {self.nenner})"
 
+    def __reduce(self):
+        """
+        Verwendeter Algorithmus: https://de.wikipedia.org/wiki/Euklidischer_Algorithmus (klassisch)
+        """
+        x = self.zaehler
+        y = self.nenner
+        while x!=y:
+            x, y = min(x, y), abs(x-y)
+        if x==y:
+            self.zaehler = int(self.zaehler/y)
+            self.nenner = int(self.nenner/y)
+
 
 if __name__ == '__main__':
-    f = Fraction(5, 3)
+    f = Fraction(49, 12)
     print(f)
     print(repr(f))#
