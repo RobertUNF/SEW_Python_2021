@@ -40,12 +40,14 @@ class Fraction:
         y = self.nenner
         while x!=y:
             x, y = min(x, y), abs(x-y)
-        if x==y:
-            self.zaehler = int(self.zaehler/y)
-            self.nenner = int(self.nenner/y)
+        self.zaehler = int(self.zaehler/y)
+        self.nenner = int(self.nenner/y)
+    
+    def __add__(self, other: "Fraction"):
+        return Fraction((self.zaehler*other.nenner)+(other.zaehler*self.nenner), self.nenner * other.nenner)
 
 
 if __name__ == '__main__':
-    f = Fraction(49, 12)
+    f = Fraction(44, 12)
     print(f)
     print(repr(f))#
