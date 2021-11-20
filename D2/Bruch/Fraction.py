@@ -316,8 +316,5 @@ class Fraction:
 
 if __name__ == '__main__':
     import doctest
-    doctest.testmod()
-
-
-    
-
+    #doctest.testmod()
+    doctest.testfile("testfile.txt")

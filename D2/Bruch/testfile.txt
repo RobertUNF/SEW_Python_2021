@@ -1,0 +1,97 @@
+>>> from Fraction import Fraction
+>>> Fraction(3, 4)
+Fraction(3, 4)
+>>> Fraction(-3, -4)
+Fraction(3, 4)
+>>> Fraction(3, -4)
+Fraction(-3, 4)
+>>> f1 = Fraction(13, 4)
+>>> print(f1)
+3 1/4
+>>> f1 = Fraction(13, -4)
+>>> print(f1)
+-3 1/4
+
+>>> f1 = Fraction(13, -4)
+>>> f2 = Fraction(7, 3)
+>>> f1 + f2
+Fraction(-11, 12)
+>>> f1 - f2
+Fraction(-67, 12)
+>>> f1 * f2
+Fraction(-91, 12)
+>>> f1 / f2
+Fraction(-39, 28)
+>>> f1 // f2
+Fraction(-1, 1)
+
+>>> f1 = Fraction(7, -9)
+>>> f2 = Fraction(12, 5)
+>>> f1 + f2
+Fraction(73, 45)
+>>> f1 - f2
+Fraction(-143, 45)
+>>> f1 * f2
+Fraction(-28, 15)
+>>> f1 / f2
+Fraction(-35, 108)
+>>> f1 // f2
+Fraction(0, 1)
+
+>>> f1 = Fraction(7, -9)
+>>> f2 = 5
+>>> f1 + f2
+Fraction(38, 9)
+>>> f2 + f1
+Fraction(38, 9)
+>>> f1 - f2
+Fraction(-52, 9)
+>>> f2 - f1
+Fraction(52, 9)
+>>> f1 * f2
+Fraction(-35, 9)
+>>> f2 * f1
+Fraction(-35, 9)
+>>> f1 / f2
+Fraction(-7, 45)
+>>> f2 / f1
+Fraction(-45, 7)
+>>> f1 // f2
+Fraction(0, 1)
+>>> f2 // f1
+Fraction(-6, 1)
+
+>>> f1 = Fraction(32, 6)
+>>> f2 = Fraction(32, 6)
+>>> f1 == f2
+True
+>>> f1 = Fraction(32, 6)
+>>> f2 = Fraction(32, -6)
+>>> f1 == f2
+False
+>>> f1 = Fraction(32, 6)
+>>> f2 = Fraction(45, 8)
+>>> f1 == f2
+False
+>>> f1 = Fraction(32, 6)
+>>> f2 = Fraction(45, 8)
+>>> f1 > f2
+False
+>>> f1 = Fraction(80, 6)
+>>> f2 = Fraction(45, 8)
+>>> f1 > f2
+True
+>>> f1 = Fraction(50, 25)
+>>> f2 = Fraction(30, 15)
+>>> f1 > f2
+False
+
+>>> Fraction.as_integer_ratio(4.5)
+Fraction(9, 2)
+
+>>> Fraction.as_integer_ratio(2.4)
+Fraction(12, 5)
+
+>>> f1 = Fraction(34, -7)
+>>> f1.__abs__()
+Fraction(34, 7)
