@@ -1,5 +1,7 @@
 # Robert Unfried
+from functools import total_ordering
 
+@total_ordering
 class Fraction:
     """
     Python Doc
@@ -45,6 +47,18 @@ class Fraction:
     
     def __add__(self, other: "Fraction"):
         return Fraction((self.zaehler*other.nenner)+(other.zaehler*self.nenner), self.nenner * other.nenner)
+    
+    def __sub__(self, other: "Fraction"):
+        return Fraction((self.zaehler*other.nenner)-(other.zaehler*self.nenner), self.nenner * other.nenner)
+
+    def __mul__(self, other: "Fraction"):
+        return Fraction(self.zaehler*other.zaehler, self.nenner * other.nenner)
+
+    def __truediv__(self, other: "Fraction"):
+        return Fraction(self.zaehler*other.nenner, self.nenner * other.zaehler)
+
+    def __floordiv__(self, other: "Fraction"):
+        return Fraction((self.zaehler*other.nenner) // (self.nenner*other.zaehler), 1)
 
 
 if __name__ == '__main__':
