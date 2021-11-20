@@ -60,8 +60,26 @@ class Fraction:
     def __floordiv__(self, other: "Fraction"):
         return Fraction((self.zaehler*other.nenner) // (self.nenner*other.zaehler), 1)
 
+    def __eq__(self, other: "Fraction"):
+        return self.zaehler == other.zaehler and self.nenner == other.nenner and \
+            self.positive == other.positive
+
+    def __lt__(self, other: "Fraction"):
+        if self.positive != other.positive:
+            if self.positive:
+                return True
+            return False
+        return self.zaehler*other.nenner > other.zaehler*self.nenner
+
+    def __abs__(self, other: "Fraction"):
+        return Fraction(self.zaehler, self.nenner)
+
+    
+
+    
+
 
 if __name__ == '__main__':
     f = Fraction(44, 12)
     print(f)
-    print(repr(f))#
+    print(repr(f))
