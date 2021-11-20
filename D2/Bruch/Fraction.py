@@ -31,8 +31,8 @@ class Fraction:
         self._positive = 1
         if nenner * zaehler < 0:
             self._positive = -1
-        self._numerator = abs(zaehler)
-        self._denominator = abs(nenner)
+        self._numerator = abs(int(zaehler))
+        self._denominator = abs(int(nenner))
         self.__reduce()
 
     def __str__(self):
@@ -79,6 +79,17 @@ class Fraction:
         while x != y: x, y = min(x, y), abs(x - y)
         self._numerator, self._denominator = self._numerator // y, self._denominator // y
 
+    def as_integer_ratio(float: float):
+        """
+        float to int ratio
+        >>> Fraction.as_integer_ratio(0.54)
+        Fraction(27, 50)
+        >>> Fraction.as_integer_ratio(1.4532)
+        Fraction(3633, 2500)
+        """
+        factor = pow(10, len(str(float).split(".")[1]))
+        return Fraction(float*factor, factor)
+        
     def __add__(self, other: "Fraction"):
         """ adds two Fractions
         >>> f1 = Fraction(15, 17)
@@ -90,9 +101,14 @@ class Fraction:
         >>> f1 + f2
         Fraction(49, 40)
         """
+        if not isinstance(other, Fraction):
+            other = Fraction.as_integer_ratio(float(other))
         return Fraction((self._numerator * other._denominator * self._positive) + \
                         (other._numerator * self._denominator * other._positive),
                         self._denominator * other._denominator)
+
+    def __radd__(self, other):
+        return self + other
 
     def __sub__(self, other: "Fraction"):
         """ subs two Fractions
@@ -105,11 +121,16 @@ class Fraction:
         >>> f1 - f2
         Fraction(-523, 560)
         """
+        if not isinstance(other, Fraction):
+            other = Fraction.as_integer_ratio(float(other))
         return Fraction((self._numerator * other._denominator * self._positive) - \
                         (other._numerator * self._denominator * other._positive),
                         self._denominator * other._denominator)
 
-    def __mul__(self, other: "Fraction"):
+    def __rsub__(self, other):
+        return other + (self * -1)
+
+    def __mul__(self, other):
         """ multiplies two Fractions
         >>> f1 = Fraction(49, 23)
         >>> f2 = Fraction(-95, -27)
@@ -120,8 +141,13 @@ class Fraction:
         >>> f1 * f2
         Fraction(-12402, 79)
         """
+        if not isinstance(other, Fraction):
+            other = Fraction.as_integer_ratio(float(other))
         return Fraction(self._numerator * other._numerator * self._positive * other._positive, \
                         self._denominator * other._denominator)
+
+    def __rmul__(self, other):
+         return self*other
 
     def __truediv__(self, other: "Fraction"):
         """ divides two Fractions
@@ -134,8 +160,14 @@ class Fraction:
         >>> f1 / f2
         Fraction(9, 5)
         """
+        if not isinstance(other, Fraction):
+            other = Fraction.as_integer_ratio(float(other))
         return Fraction(self._numerator * other._denominator * self._positive * other._positive, \
                         self._denominator * other._numerator)
+
+    def __rtruediv__(self, other):
+         return Fraction.as_integer_ratio(other) / self
+
 
     def __floordiv__(self, other: "Fraction"):
         """ divides two Fractions
@@ -148,8 +180,13 @@ class Fraction:
         >>> f1 // f2
         Fraction(8, 1)
         """
+        if not isinstance(other, Fraction):
+            other = Fraction.as_integer_ratio(float(other))
         return Fraction((self._numerator * other._denominator) // (self._denominator * other._numerator) \
                         * self._positive * other._positive, 1)
+
+    def __rfloordiv__(self, other):
+         return Fraction.as_integer_ratio(other) // self
 
     def __eq__(self, other: "Fraction"):
         """ divides two Fractions
@@ -242,3 +279,10 @@ class Fraction:
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
+    f1 = Fraction(3, 4)
+    print(f1 - 1)
+    print(1 - f1)
+
+
+    
+
