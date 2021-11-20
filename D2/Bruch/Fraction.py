@@ -10,16 +10,16 @@ class Fraction:
     def __init__(self, zaehler: int = 1, nenner: int = 1):
         if nenner == 0:
             raise ArithmeticError
-        self._positive = True
+        self._positive = 1
         if nenner * zaehler < 0:
-            self._positive = False
+            self._positive = -1
         self._numerator = abs(zaehler)
         self._denominator = abs(nenner)
         self.__reduce()
 
     def __str__(self):
         num = ""
-        if not self._positive:
+        if not self._positive > 0:
             num = "-"
         frac = ""
         if self._numerator // self._denominator != 0:
@@ -31,8 +31,7 @@ class Fraction:
         return num + frac
 
     def __repr__(self):
-        mult = 1 if self._positive else -1
-        return self.__class__.__name__ + f"({self._numerator * mult}, {self._denominator})"
+        return self.__class__.__name__ + f"({self._numerator * self._positive}, {self._denominator})"
 
     def __reduce(self):
         """
@@ -43,19 +42,24 @@ class Fraction:
         self._numerator, self._denominator = self._numerator // y, self._denominator // y
     
     def __add__(self, other: "Fraction"):
-        return Fraction((self._numerator * other._denominator) + (other._numerator * self._denominator), self._denominator * other._denominator)
+        return Fraction((self._numerator * other._denominator * self._positive) + \
+        (other._numerator * self._denominator * other._positive), self._denominator * other._denominator)
     
     def __sub__(self, other: "Fraction"):
-        return Fraction((self._numerator * other._denominator) - (other._numerator * self._denominator), self._denominator * other._denominator)
+        return Fraction((self._numerator * other._denominator * self._positive) - \
+        (other._numerator * self._denominator * other._positive), self._denominator * other._denominator)
 
     def __mul__(self, other: "Fraction"):
-        return Fraction(self._numerator * other._numerator, self._denominator * other._denominator)
+        return Fraction(self._numerator * other._numerator * self._positive * other._positive, \
+        self._denominator * other._denominator)
 
     def __truediv__(self, other: "Fraction"):
-        return Fraction(self._numerator * other._denominator, self._denominator * other._numerator)
+        return Fraction(self._numerator * other._denominator * self._positive * other._positive, \
+            self._denominator * other._numerator)
 
     def __floordiv__(self, other: "Fraction"):
-        return Fraction((self._numerator * other._denominator) // (self._denominator * other._numerator), 1)
+        return Fraction((self._numerator * other._denominator) // (self._denominator * other._numerator) \
+             * self._positive * other._positive, 1)
 
     def __eq__(self, other: "Fraction"):
         return self._numerator == other._numerator and self._denominator == other._denominator and \
@@ -63,7 +67,7 @@ class Fraction:
 
     def __lt__(self, other: "Fraction"):
         if self._positive != other._positive:
-            if self._positive:
+            if self._positive > 0:
                 return True
             return False
         return self._numerator * other._denominator > other._numerator * self._denominator
@@ -74,11 +78,12 @@ class Fraction:
     @property
     def numerator(self):
         """The numerator of the fraction"""
-        return self._numerator
+        return self._numerator if self._positive else self._numerator*-1
 
     @numerator.setter
     def numerator(self, value):
-        self._numerator = value
+        if value < 0: self._positive = not self._positive
+        self._numerator = abs(value)
 
     @numerator.deleter
     def numerator(self):
@@ -96,19 +101,6 @@ class Fraction:
     @denominator.deleter
     def denominator(self):
         del self._denominator
-
-    @property
-    def positive(self):
-        """Boolean is true if the fraction is positive"""
-        return self._positive
-
-    @positive.setter
-    def positive(self, value):
-        self._positive = value
-
-    @positive.deleter
-    def positive(self):
-        del self._positive
 
 
 if __name__ == '__main__':
