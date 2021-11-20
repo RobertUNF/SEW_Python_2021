@@ -80,37 +80,111 @@ class Fraction:
         self._numerator, self._denominator = self._numerator // y, self._denominator // y
 
     def __add__(self, other: "Fraction"):
+        """ adds two Fractions
+        >>> f1 = Fraction(15, 17)
+        >>> f2 = Fraction(78, 56)
+        >>> f1 + f2
+        Fraction(1083, 476)
+        >>> f1 = Fraction(56, 35)
+        >>> f2 = Fraction(-21, 56)
+        >>> f1 + f2
+        Fraction(49, 40)
+        """
         return Fraction((self._numerator * other._denominator * self._positive) + \
                         (other._numerator * self._denominator * other._positive),
                         self._denominator * other._denominator)
 
     def __sub__(self, other: "Fraction"):
+        """ subs two Fractions
+        >>> f1 = Fraction(67, 34)
+        >>> f2 = Fraction(23, 54)
+        >>> f1 - f2
+        Fraction(709, 459)
+        >>> f1 = Fraction(-56, 98)
+        >>> f2 = Fraction(29, 80)
+        >>> f1 - f2
+        Fraction(-523, 560)
+        """
         return Fraction((self._numerator * other._denominator * self._positive) - \
                         (other._numerator * self._denominator * other._positive),
                         self._denominator * other._denominator)
 
     def __mul__(self, other: "Fraction"):
+        """ multiplies two Fractions
+        >>> f1 = Fraction(49, 23)
+        >>> f2 = Fraction(-95, -27)
+        >>> f1 * f2
+        Fraction(4655, 621)
+        >>> f1 = Fraction(-954, 5)
+        >>> f2 = Fraction(65, 79)
+        >>> f1 * f2
+        Fraction(-12402, 79)
+        """
         return Fraction(self._numerator * other._numerator * self._positive * other._positive, \
                         self._denominator * other._denominator)
 
     def __truediv__(self, other: "Fraction"):
+        """ divides two Fractions
+        >>> f1 = Fraction(47, 65)
+        >>> f2 = Fraction(-85, 14)
+        >>> f1 / f2
+        Fraction(-658, 5525)
+        >>> f1 = Fraction(-12, 5)
+        >>> f2 = Fraction(4, -3)
+        >>> f1 / f2
+        Fraction(9, 5)
+        """
         return Fraction(self._numerator * other._denominator * self._positive * other._positive, \
                         self._denominator * other._numerator)
 
     def __floordiv__(self, other: "Fraction"):
+        """ divides two Fractions
+        >>> f1 = Fraction(45251, 21)
+        >>> f2 = Fraction(-867, 54)
+        >>> f1 // f2
+        Fraction(-134, 1)
+        >>> f1 = Fraction(67, 3)
+        >>> f2 = Fraction(55, 20)
+        >>> f1 // f2
+        Fraction(8, 1)
+        """
         return Fraction((self._numerator * other._denominator) // (self._denominator * other._numerator) \
                         * self._positive * other._positive, 1)
 
     def __eq__(self, other: "Fraction"):
+        """ divides two Fractions
+        >>> f1 = Fraction(44, 12)
+        >>> f2 = Fraction(44, 12)
+        >>> f1 == f2
+        True
+        >>> f1 = Fraction(44, 12)
+        >>> f2 = Fraction(44, -12)
+        >>> f1 == f2
+        False
+        >>> f1 = Fraction(44, 12)
+        >>> f2 = Fraction(45, 98)
+        >>> f1 == f2
+        False
+        """
         return self._numerator == other._numerator and self._denominator == other._denominator and \
                self._positive == other._positive
 
-    def __lt__(self, other: "Fraction"):
-        if self._positive != other._positive:
-            if self._positive > 0:
-                return True
-            return False
-        return self._numerator * other._denominator > other._numerator * self._denominator
+    def __gt__(self, other: "Fraction"):
+        """ divides two Fractions
+        >>> f1 = Fraction(87, 56)
+        >>> f2 = Fraction(87, 56)
+        >>> f1 > f2
+        False
+        >>> f1 = Fraction(56, 4)
+        >>> f2 = Fraction(3424, 3444)
+        >>> f1 > f2
+        True
+        >>> f1 = Fraction(876, -1)
+        >>> f2 = Fraction(3, 4)
+        >>> f1 > f2
+        False
+        """
+        return self._numerator * other._denominator * self._positive > other._numerator * self._denominator * other._positive
 
     def __abs__(self, other: "Fraction"):
         return Fraction(self._numerator, self._denominator)
