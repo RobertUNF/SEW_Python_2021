@@ -186,10 +186,26 @@ class Fraction:
         """
         return self._numerator * other._denominator * self._positive > other._numerator * self._denominator * other._positive
 
-    def __abs__(self, other: "Fraction"):
+    def __abs__(self):
+        """ gets the absolute value of the fraction
+        >>> f1 = Fraction(-87, 56)
+        >>> f1.__abs__()
+        Fraction(87, 56)
+        >>> f2 = Fraction(87, -56)
+        >>> f2.__abs__()
+        Fraction(87, 56)
+        """
         return Fraction(self._numerator, self._denominator)
 
     def __float__(self):
+        """ gets the absolute value of the fraction
+        >>> f1 = Fraction(6842, 4687)
+        >>> f1.__float__()
+        1.4597823767868572
+        >>> f2 = Fraction(657651, 65465448)
+        >>> f2.__float__()
+        0.01004577254248684
+        """
         return self._positive * (self._numerator / self._denominator)
 
     @property
