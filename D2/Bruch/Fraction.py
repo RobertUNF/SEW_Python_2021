@@ -1,6 +1,7 @@
 # Robert Unfried
 from functools import total_ordering
 
+
 @total_ordering
 class Fraction:
     """ Class for Fractions
@@ -45,28 +46,30 @@ class Fraction:
         Verwendeter Algorithmus: https://de.wikipedia.org/wiki/Euklidischer_Algorithmus (klassisch)
         """
         x, y = self._numerator, self._denominator
-        while x!=y: x, y = min(x, y), abs(x-y)
+        while x != y: x, y = min(x, y), abs(x - y)
         self._numerator, self._denominator = self._numerator // y, self._denominator // y
-    
+
     def __add__(self, other: "Fraction"):
         return Fraction((self._numerator * other._denominator * self._positive) + \
-        (other._numerator * self._denominator * other._positive), self._denominator * other._denominator)
-    
+                        (other._numerator * self._denominator * other._positive),
+                        self._denominator * other._denominator)
+
     def __sub__(self, other: "Fraction"):
         return Fraction((self._numerator * other._denominator * self._positive) - \
-        (other._numerator * self._denominator * other._positive), self._denominator * other._denominator)
+                        (other._numerator * self._denominator * other._positive),
+                        self._denominator * other._denominator)
 
     def __mul__(self, other: "Fraction"):
         return Fraction(self._numerator * other._numerator * self._positive * other._positive, \
-        self._denominator * other._denominator)
+                        self._denominator * other._denominator)
 
     def __truediv__(self, other: "Fraction"):
         return Fraction(self._numerator * other._denominator * self._positive * other._positive, \
-            self._denominator * other._numerator)
+                        self._denominator * other._numerator)
 
     def __floordiv__(self, other: "Fraction"):
         return Fraction((self._numerator * other._denominator) // (self._denominator * other._numerator) \
-             * self._positive * other._positive, 1)
+                        * self._positive * other._positive, 1)
 
     def __eq__(self, other: "Fraction"):
         return self._numerator == other._numerator and self._denominator == other._denominator and \
@@ -83,7 +86,7 @@ class Fraction:
         return Fraction(self._numerator, self._denominator)
 
     def __float__(self):
-        return self._positive * (self._numerator/self._denominator)
+        return self._positive * (self._numerator / self._denominator)
 
     @property
     def numerator(self):
@@ -117,4 +120,5 @@ class Fraction:
 
 
 if __name__ == '__main__':
-    pass
+    import doctest
+    doctest.testmod()
