@@ -26,6 +26,8 @@ class Fraction:
     """
 
     def __init__(self, zaehler: int = 1, nenner: int = 1):
+        """ constructor
+        """
         if nenner == 0:
             raise ArithmeticError
         self._positive = 1
@@ -36,7 +38,7 @@ class Fraction:
         self.__reduce()
 
     def __str__(self):
-        """ prints the fration 
+        """ prints the fraction 
         >>> f1 = Fraction(13,-45)
         >>> print(f1)
         -13/45
@@ -111,7 +113,7 @@ class Fraction:
                         self._denominator * other._denominator)
 
     def __radd__(self, other):
-        """
+        """ reverse add
         >>> f1 = Fraction(15, 17)
         >>> f1 + 1
         Fraction(32, 17)
@@ -138,7 +140,7 @@ class Fraction:
                         self._denominator * other._denominator)
 
     def __rsub__(self, other):
-        """
+        """ reverse sub
         >>> f1 = Fraction(65, 30)
         >>> f1 - 2
         Fraction(1, 6)
@@ -164,7 +166,7 @@ class Fraction:
                         self._denominator * other._denominator)
 
     def __rmul__(self, other):
-        """
+        """ reverse mul
         >>> f1 = Fraction(7, 9)
         >>> f1 * 2
         Fraction(14, 9)
@@ -190,7 +192,7 @@ class Fraction:
                         self._denominator * other._numerator)
 
     def __rtruediv__(self, other):
-        """
+        """ reverse divide
         >>> f1 = Fraction(12, 7)
         >>> f1 / 2
         Fraction(6, 7)
@@ -217,7 +219,7 @@ class Fraction:
                         * self._positive * other._positive, 1)
 
     def __rfloordiv__(self, other):
-        """
+        """ reverse divide 
         >>> f1 = Fraction(30, 7)
         >>> f1 // 2
         Fraction(2, 1)
@@ -227,7 +229,7 @@ class Fraction:
         return Fraction.as_integer_ratio(other) // self
 
     def __eq__(self, other: "Fraction"):
-        """ divides two Fractions
+        """ checks if fractionns are equal
         >>> f1 = Fraction(44, 12)
         >>> f2 = Fraction(44, 12)
         >>> f1 == f2
@@ -245,7 +247,7 @@ class Fraction:
                self._positive == other._positive
 
     def __gt__(self, other: "Fraction"):
-        """ divides two Fractions
+        """ checks if self is greater than other
         >>> f1 = Fraction(87, 56)
         >>> f2 = Fraction(87, 56)
         >>> f1 > f2
@@ -273,7 +275,7 @@ class Fraction:
         return Fraction(self._numerator, self._denominator)
 
     def __float__(self):
-        """ gets the absolute value of the fraction
+        """ transforms the fraction into a float value
         >>> f1 = Fraction(6842, 4687)
         >>> f1.__float__()
         1.4597823767868572
@@ -316,5 +318,5 @@ class Fraction:
 
 if __name__ == '__main__':
     import doctest
-    #doctest.testmod()
+    doctest.testmod()
     doctest.testfile("testfile.txt")
