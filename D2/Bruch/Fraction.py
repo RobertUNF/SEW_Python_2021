@@ -38,12 +38,9 @@ class Fraction:
         """
         Verwendeter Algorithmus: https://de.wikipedia.org/wiki/Euklidischer_Algorithmus (klassisch)
         """
-        x = self.zaehler
-        y = self.nenner
-        while x!=y:
-            x, y = min(x, y), abs(x-y)
-        self.zaehler = int(self.zaehler/y)
-        self.nenner = int(self.nenner/y)
+        x, y = self.zaehler, self.nenner
+        while x!=y: x, y = min(x, y), abs(x-y)
+        self.zaehler, self.nenner = self.zaehler//y, self.nenner//y
     
     def __add__(self, other: "Fraction"):
         return Fraction((self.zaehler*other.nenner)+(other.zaehler*self.nenner), self.nenner * other.nenner)
