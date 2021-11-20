@@ -3,8 +3,17 @@ from functools import total_ordering
 
 @total_ordering
 class Fraction:
-    """
-    Python Doc
+    """ Class for Fractions
+    >>> f1 = Fraction(1,2)
+    >>> f1 # __repr__
+    Fraction(1, 2)
+    >>> print(f1) # __str__
+    1/2
+    >>> f2 = Fraction(1,4)
+    >>> print(f2)
+    1/4
+    >>> f1+f2
+    Fraction(3, 4)
     """
 
     def __init__(self, zaehler: int = 1, nenner: int = 1):
@@ -26,9 +35,7 @@ class Fraction:
             num += str(self._numerator // self._denominator) + " "
         if self._numerator % self._denominator != 0:
             frac = str(self._numerator % self._denominator) + "/" + str(self._denominator)
-        
-
-        return num + frac
+        return (num + frac).strip()
 
     def __repr__(self):
         return self.__class__.__name__ + f"({self._numerator * self._positive}, {self._denominator})"
@@ -75,6 +82,9 @@ class Fraction:
     def __abs__(self, other: "Fraction"):
         return Fraction(self._numerator, self._denominator)
 
+    def __float__(self):
+        return self._positive * (self._numerator/self._denominator)
+
     @property
     def numerator(self):
         """The numerator of the fraction"""
@@ -84,6 +94,7 @@ class Fraction:
     def numerator(self, value):
         if value < 0: self._positive *= -1
         self._numerator = abs(value)
+        self.__reduce()
 
     @numerator.deleter
     def numerator(self):
@@ -98,6 +109,7 @@ class Fraction:
     def denominator(self, value):
         if value < 0: self._positive *= -1
         self._denominator = abs(value)
+        self.__reduce()
 
     @denominator.deleter
     def denominator(self):
@@ -105,6 +117,4 @@ class Fraction:
 
 
 if __name__ == '__main__':
-    f = Fraction(44, 12)
-    print(f)
-    print(repr(f))
+    pass
