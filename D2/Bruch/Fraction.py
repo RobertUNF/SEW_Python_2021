@@ -76,10 +76,11 @@ class Fraction:
         4 3/5
         """
         x, y = self._numerator, self._denominator
-        while x != y: x, y = min(x, y), abs(x - y)
-        self._numerator, self._denominator = self._numerator // y, self._denominator // y
+        while x != y and x != 1 and y != 1: x, y = min(x, y), abs(x - y)
+        if x==y:
+            self._numerator, self._denominator = self._numerator // y, self._denominator // y
 
-    def as_integer_ratio(float: float):
+    def as_integer_ratio(float):
         """
         float to int ratio
         >>> Fraction.as_integer_ratio(0.54)
@@ -87,7 +88,9 @@ class Fraction:
         >>> Fraction.as_integer_ratio(1.4532)
         Fraction(3633, 2500)
         """
-        factor = pow(10, len(str(float).split(".")[1]))
+        factor = 1
+        if(float != int(float)):
+            factor = pow(10, len(str(float).split(".")[1]))
         return Fraction(float*factor, factor)
         
     def __add__(self, other: "Fraction"):
@@ -279,9 +282,6 @@ class Fraction:
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
-    f1 = Fraction(3, 4)
-    print(f1 - 1)
-    print(1 - f1)
 
 
     
