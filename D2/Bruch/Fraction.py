@@ -78,16 +78,16 @@ class Fraction:
     @property
     def numerator(self):
         """The numerator of the fraction"""
-        return self._numerator if self._positive else self._numerator*-1
+        return self._numerator * self._positive
 
     @numerator.setter
     def numerator(self, value):
-        if value < 0: self._positive = not self._positive
+        if value < 0: self._positive *= -1
         self._numerator = abs(value)
 
     @numerator.deleter
     def numerator(self):
-        del self._numerator
+        self._numerator = 1
 
     @property
     def denominator(self):
@@ -96,11 +96,12 @@ class Fraction:
 
     @denominator.setter
     def denominator(self, value):
-        self._denominator = value
+        if value < 0: self._positive *= -1
+        self._denominator = abs(value)
 
     @denominator.deleter
     def denominator(self):
-        del self._denominator
+        self._denominator = 1
 
 
 if __name__ == '__main__':
