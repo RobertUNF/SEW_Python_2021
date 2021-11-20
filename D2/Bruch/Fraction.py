@@ -111,6 +111,13 @@ class Fraction:
                         self._denominator * other._denominator)
 
     def __radd__(self, other):
+        """
+        >>> f1 = Fraction(15, 17)
+        >>> f1 + 1
+        Fraction(32, 17)
+        >>> 1 + f1
+        Fraction(32, 17)
+        """
         return self + other
 
     def __sub__(self, other: "Fraction"):
@@ -131,6 +138,13 @@ class Fraction:
                         self._denominator * other._denominator)
 
     def __rsub__(self, other):
+        """
+        >>> f1 = Fraction(65, 30)
+        >>> f1 - 2
+        Fraction(1, 6)
+        >>> 2 - f1
+        Fraction(-1, 6)
+        """
         return other + (self * -1)
 
     def __mul__(self, other):
@@ -150,7 +164,14 @@ class Fraction:
                         self._denominator * other._denominator)
 
     def __rmul__(self, other):
-         return self*other
+        """
+        >>> f1 = Fraction(7, 9)
+        >>> f1 * 2
+        Fraction(14, 9)
+        >>> 2 * f1
+        Fraction(14, 9)
+        """
+        return self*other
 
     def __truediv__(self, other: "Fraction"):
         """ divides two Fractions
@@ -169,7 +190,14 @@ class Fraction:
                         self._denominator * other._numerator)
 
     def __rtruediv__(self, other):
-         return Fraction.as_integer_ratio(other) / self
+        """
+        >>> f1 = Fraction(12, 7)
+        >>> f1 / 2
+        Fraction(6, 7)
+        >>> 2 / f1
+        Fraction(7, 6)
+        """
+        return Fraction.as_integer_ratio(other) / self
 
 
     def __floordiv__(self, other: "Fraction"):
@@ -189,7 +217,14 @@ class Fraction:
                         * self._positive * other._positive, 1)
 
     def __rfloordiv__(self, other):
-         return Fraction.as_integer_ratio(other) // self
+        """
+        >>> f1 = Fraction(30, 7)
+        >>> f1 // 2
+        Fraction(2, 1)
+        >>> 2 // f1
+        Fraction(0, 1)
+        """
+        return Fraction.as_integer_ratio(other) // self
 
     def __eq__(self, other: "Fraction"):
         """ divides two Fractions
