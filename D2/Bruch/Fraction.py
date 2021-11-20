@@ -15,6 +15,14 @@ class Fraction:
     1/4
     >>> f1+f2
     Fraction(3, 4)
+    >>> f3 = Fraction(1,-4)
+    >>> print(f3)
+    -1/4
+    >>> f1+f2+f3
+    Fraction(1, 2)
+    >>> f2 = Fraction(1,0)
+    Traceback (most recent call last):
+    ArithmeticError
     """
 
     def __init__(self, zaehler: int = 1, nenner: int = 1):
@@ -28,6 +36,14 @@ class Fraction:
         self.__reduce()
 
     def __str__(self):
+        """ prints the fration 
+        >>> f1 = Fraction(13,-45)
+        >>> print(f1)
+        -13/45
+        >>> f2 = Fraction(77,25)
+        >>> print(f2)
+        3 2/25
+        """
         num = ""
         if not self._positive > 0:
             num = "-"
@@ -39,11 +55,25 @@ class Fraction:
         return (num + frac).strip()
 
     def __repr__(self):
+        """ __repr__ method
+        >>> f1 = Fraction(13,-45)
+        >>> f1 # __repr__
+        Fraction(-13, 45)
+        >>> f2 = Fraction(77,25)
+        >>> f2 # __repr__
+        Fraction(77, 25)
+        """
         return self.__class__.__name__ + f"({self._numerator * self._positive}, {self._denominator})"
 
     def __reduce(self):
         """
         Verwendeter Algorithmus: https://de.wikipedia.org/wiki/Euklidischer_Algorithmus (klassisch)
+        >>> f1 = Fraction(44, 12)
+        >>> print(f1)
+        3 2/3
+        >>> f2 = Fraction(115,25)
+        >>> print(f2)
+        4 3/5
         """
         x, y = self._numerator, self._denominator
         while x != y: x, y = min(x, y), abs(x - y)
